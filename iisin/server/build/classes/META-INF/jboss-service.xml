@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<server>
+  <!--  mbean code="de.vab.vabnet.fahrzeugortung.service.ServiceFahrzeugortung" name="mbean.vabnet:service=ServiceFahrzeugortung">
+    <attribute name="JndiName">vabnet/ServiceFahrzeugortung</attribute>
+    <attribute name="Intervall">15</attribute>
+    <attribute name="StartDelay">30</attribute>
+  </mbean-->
+  <!-- mbean code="de.oleg.AboClientBean" name=":service=AboClientBean">
+  </mbean-->
+
+</server>

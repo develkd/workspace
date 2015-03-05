@@ -1,0 +1,124 @@
+<?xml version="1.0"?>
+
+<!-- ======================================================================= -->
+<!-- VABnet-Server build file                                                       -->
+<!-- ======================================================================= -->
+
+<project name="IISIN-Server" default="main" basedir=".">
+
+	<property file="iisin.properties" />
+	<property environment="env" />
+	<property name="jboss.home" value="${env.JBOSS_HOME}" />
+	<property name="jboss.server.config" value="default" />
+	<property name="src.dir" value="${basedir}/src/java" />
+	<property name="src.common.dir" value="${basedir}/../I-ISIN-Common/src/java" />
+	<property name="build.dir" value="${basedir}/build" />
+	<property name="build.classes.dir" value="${build.dir}/classes" />
+	<property name="lib.dir" value="D:/makefiles_libs/lib" />
+
+
+	<!-- =================================================================== -->
+	<!-- Build CLASSPATH                                        -->
+	<!-- =================================================================== -->
+	<path id="classpath">
+		<fileset dir="${jboss.home}/lib">
+			<include name="**/*.jar" />
+		</fileset>
+		<fileset dir="${jboss.home}/server/${jboss.server.config}/lib">
+			<include name="**/*.jar" />
+		</fileset>
+		<fileset dir="${jboss.home}/server/${jboss.server.config}/deploy/ejb3.deployer">
+			<include name="*.jar" />
+		</fileset>
+		<fileset dir="${jboss.home}/server/${jboss.server.config}/deploy/jbossws.sar">
+			<include name="*.jar" />
+		</fileset>
+		<fileset dir="${jboss.home}/server/${jboss.server.config}/deploy/jboss-aop-jdk50.deployer">
+			<include name="*.jar" />
+		</fileset>
+
+		<pathelement location="${lib.dir}/binding-2.0.6.jar" />
+		<pathelement location="${lib.dir}/validation-2.0.1.jar" />
+		<pathelement location="${lib.dir}/db/postgis.jar" />
+
+	</path>
+
+	<!-- =================================================================== -->
+	<!-- Prepares the build directory                                        -->
+	<!-- =================================================================== -->
+	<target name="prepare" depends="clean">
+		<tstamp/>
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${build.classes.dir}" />
+	</target>
+
+	<!-- =================================================================== -->
+	<!-- Löscht das build-Verzeichnis                                        -->
+	<!-- =================================================================== -->
+	<target name="clean" description="clean up">
+		<delete dir="${build.dir}" />
+	</target>
+
+	<!-- =================================================================== -->
+	<!-- Compiles the source code                                            -->
+	<!-- =================================================================== -->
+	<target name="compile" depends="prepare">
+		<javac destdir="${build.classes.dir}" debug="on" deprecation="on" optimize="off" source="1.5" verbose="false" memoryinitialsize="50m" memorymaximumsize="50m">
+			<src path="${src.common.dir}" />
+			<src path="${src.dir}" />
+
+			<classpath refid="classpath" />
+		</javac>
+	</target>
+
+	<!-- =================================================================== -->
+	<!-- Packt das *.jar & *.sar File                                        -->
+	<!-- =================================================================== -->
+	<target name="server-jar" depends="compile">
+		<jar jarfile="build/${ant.project.name}.jar">
+			<fileset dir="${build.classes.dir}">
+				<include name="**/*.class"/>
+				<include name="**/*.properties"/>
+			</fileset>
+			<fileset dir="${src.dir}">
+				<include name="**/*.properties"/>
+			</fileset>
+			<fileset dir="${src.common.dir}">
+				<include name="**/*.properties"/>
+			</fileset>
+			<fileset dir="${basedir}/src/java">
+				<include name="META-INF/persistence.xml"/>
+			    <include name="META-INF/MANIFEST.MF"/>
+			</fileset>
+		</jar>
+		
+		<jar jarfile="build/${ant.project.name}.sar">
+			<fileset dir="${build.classes.dir}">
+				<include name="**/*.class" />
+
+			</fileset>
+			<fileset dir="${basedir}/src/java">
+				<include name="META-INF/jboss-service.xml" />
+			</fileset>
+		</jar>
+
+		<!--
+		-${DSTAMP}${TSTAMP}
+		-->
+    	<ear earfile="build/${ant.project.name}.ear" appxml="${src.dir}/META-INF/application.xml" manifest="${src.dir}/META-INF/MANIFEST.MF">
+            <fileset dir="${build.dir}" includes="${ant.project.name}*.jar, ${ant.project.name}*.sar"/>
+        </ear>
+
+		<!--copy file="VABnetVDV.war" todir="${env.JBOSS_HOME}/server/default/deploy" /-->
+
+	</target>
+
+
+
+
+	<!-- =================================================================== -->
+	<!-- main - Einstiegspunkt                                               -->
+	<!-- =================================================================== -->
+	<target name="main" depends="server-jar"/>
+
+</project>

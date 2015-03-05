@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/java"/>
+	<classpathentry kind="src" path="resources"/>
+	<classpathentry kind="src" path="jgoodies"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="var" path="JGOODIES/animation-1.2.0/animation-1.2.0.jar"/>
+	<classpathentry kind="var" path="JGOODIES/jgoodies-binding-2.2.0b3/jgoodies-binding-2.2.0b3.jar"/>
+	<classpathentry kind="var" path="JGOODIES/jgoodies-forms-1.4.0b4/jgoodies-forms-1.4.0b4.jar" sourcepath="/JGOODIES_SRC/forms-1_2_1/src"/>
+	<classpathentry kind="var" path="JGOODIES/jgoodies-looks-2.4.0b5/jgoodies-looks-2.4.0b5.jar" sourcepath="/JGOODIES_SRC/looks-2_2_1/src"/>
+	<classpathentry kind="var" path="JGOODIES/jgoodies-validation-2.2.0b4/jgoodies-validation-2.2.0b4.jar" sourcepath="/JGOODIES_SRC/validation-2_0_1/src"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/I-ISIN-Common"/>
+	<classpathentry kind="var" path="JGOODIES/jgoodies-common-1.1.0/jgoodies-common-1.1.0.jar" sourcepath="/JGOODIES/jgoodies-common-1.1.0/src"/>
+	<classpathentry kind="var" path="JGOODIES/jsdl-basics-0.9.4/jsdl-basics-0.9.4.jar"/>
+	<classpathentry kind="var" path="JGOODIES/jsdl-core-0.9.17/jsdl-core-0.9.17.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
